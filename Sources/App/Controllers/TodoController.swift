@@ -11,6 +11,10 @@ final class TodoController {
     }
   }
 
+  func clear(_ req: Request) throws -> Future<HTTPStatus> {
+    return Todo.query(on: req).delete().transform(to: .ok)
+  }
+
   func delete(_ req: Request) throws -> Future<HTTPStatus> {
     return try req.parameters.next(Todo.self).flatMap { todo in
       todo.delete(on: req)
