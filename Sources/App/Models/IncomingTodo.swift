@@ -15,4 +15,24 @@ extension Todo {
       )
     }
   }
+
+  func patched(with incoming: Incoming) -> Todo {
+    var copy = self
+    copy.patch(with: incoming)
+    return copy
+  }
+
+  mutating func patch(with incoming: Incoming) {
+    if let completed = incoming.completed {
+      self.completed = completed
+    }
+
+    if let order = incoming.order {
+      self.order = order
+    }
+
+    if let title = incoming.title {
+      self.title = title
+    }
+  }
 }
