@@ -28,7 +28,7 @@ final class TodoController {
   func update(_ req: Request) throws -> Future<Todo.Outgoing> {
     let todo = try req.parameters.next(Todo.self)
     let incoming = try req.content.decode(Todo.Incoming.self)
-    let patched = map(to: Todo.self, todo, incoming) { $0.patched(with: $1) }
+    let patched = todo.and(incoming).map { $0.patched(with: $1) }
     return patched.save(on: req).makeOutgoing(with: req)
   }
 }
