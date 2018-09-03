@@ -2,9 +2,7 @@ import Vapor
 
 final class TodoController {
   func index(_ req: Request) throws -> Future<[Todo.Outgoing]> {
-    return Todo.query(on: req).all().map { todos in
-      todos.map { $0.makeOutgoing(with: req) }
-    }
+    return Todo.query(on: req).all().makeOutgoing(with: req)
   }
 
   func view(_ req: Request) throws -> Future<Todo.Outgoing> {
@@ -13,8 +11,8 @@ final class TodoController {
 
   func create(_ req: Request) throws -> Future<Todo.Outgoing> {
     return try req.content.decode(Todo.Incoming.self).flatMap { incoming in
-      incoming.makeTodo().save(on: req).makeOutgoing(with: req)
-    }
+      incoming.makeTodo().save(on: req)
+    }.makeOutgoing(with: req)
   }
 
   func clear(_ req: Request) throws -> Future<HTTPStatus> {
