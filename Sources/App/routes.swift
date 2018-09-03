@@ -2,6 +2,10 @@ import Vapor
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
+  router.get("/") { req in
+    return req.redirect(to: "/todos")
+  }
+
   let todoController = TodoController()
   router.get("todos", use: todoController.index)
   router.get("todos", Todo.parameter, use: todoController.view)
