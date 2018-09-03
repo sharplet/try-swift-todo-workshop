@@ -1,14 +1,11 @@
 import FluentSQLite
 import Vapor
 
-final class Todo: SQLiteModel {
+struct Todo: SQLiteModel {
   var id: Int?
   var title: String
-
-  init(id: Int? = nil, title: String) {
-    self.id = id
-    self.title = title
-  }
+  var completed: Bool
+  var order: Int?
 }
 
 /// Allows `Todo` to be used as a dynamic migration.

@@ -6,8 +6,8 @@ final class TodoController {
   }
 
   func create(_ req: Request) throws -> Future<Todo> {
-    return try req.content.decode(Todo.self).flatMap { todo in
-      todo.save(on: req)
+    return try req.content.decode(Todo.Incoming.self).flatMap { incoming in
+      incoming.makeTodo().save(on: req)
     }
   }
 
