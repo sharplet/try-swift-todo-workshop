@@ -1,6 +1,6 @@
 import Vapor
 
-extension Todo {
+extension Todo: WithOutgoing {
   struct Outgoing: Content {
     var id: Int?
     var title: String?
