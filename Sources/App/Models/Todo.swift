@@ -1,7 +1,7 @@
-import FluentSQLite
+import FluentPostgreSQL
 import Vapor
 
-struct Todo: SQLiteModel {
+struct Todo: PostgreSQLModel {
   var id: Int?
   var title: String
   var completed: Bool
